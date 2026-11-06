@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tobías Galarza Montoro · Portafolio</title>
+<meta name="description" content="Portafolio de Tobías Galarza Montoro, estudiante de Ingeniería en Sistemas de Información (UTN, Córdoba). Apps Android, sistemas web full stack y agentes de IA para Claude Code.">
+<meta name="theme-color" content="#E6EAEE">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23E6EAEE'/%3E%3Ccircle cx='16' cy='16' r='12' fill='none' stroke='%2322262B' stroke-width='2.5'/%3E%3Ctext x='16' y='21.5' font-family='Arial' font-weight='700' font-size='15' text-anchor='middle' fill='%2322262B'%3ET%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,400..800;1,62..125,400..600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --calco:#E6EAEE;
+    --calco-2:#DCE1E6;
+    --tinta:#22262B;
+    --tinta-2:#4A5059;
+    --lapiz:#2747A8;
+    --lapiz-t:rgba(39,71,168,.08);
+    --rev:#B02A17;
+    --trama:rgba(39,71,168,.075);
+    --margen:22px;
+    --pad:clamp(20px,4vw,64px);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth;scrollbar-color:var(--tinta-2) var(--calco-2)}
+  body{
+    margin:0;font-family:'Archivo',system-ui,sans-serif;font-size:17px;line-height:1.55;color:var(--tinta);
+    background:
+      linear-gradient(var(--trama) 1px,transparent 1px) 0 0/24px 24px,
+      linear-gradient(90deg,var(--trama) 1px,transparent 1px) 0 0/24px 24px,
+      var(--calco);
+    font-variant-numeric:tabular-nums;-webkit-font-smoothing:antialiased;caret-color:var(--lapiz);
+  }
+  ::selection{background:var(--lapiz);color:#fff}
+  a{color:var(--lapiz);text-decoration-thickness:1px;text-underline-offset:4px}
+  a:hover{text-decoration-thickness:2px}
+  :focus-visible{outline:2px dashed var(--lapiz);outline-offset:4px}
+  h1,h2,h3,p,ul,ol,dl,dd,figure{margin:0}
+  ul{padding:0;list-style:none}
+
+  /* lámina: marco doble con letras de zona */
+  .lamina{position:relative;margin:var(--margen);border:1px solid var(--tinta);padding:16px 10px 10px}
+  .marco{border:3px solid var(--tinta);position:relative}
+  .regla{position:absolute;top:0;left:10px;right:10px;height:16px;display:flex;justify-content:space-around;pointer-events:none}
+  .regla span{font-stretch:75%;font-weight:600;font-size:10px;line-height:16px;color:var(--tinta-2);position:relative}
+  .regla span::before,.regla span::after{content:"";position:absolute;top:4px;width:1px;height:8px;background:var(--tinta-2)}
+  .regla span::before{left:-14px}.regla span::after{right:-14px}
+
+  .etiqueta{font-stretch:72%;font-weight:600;font-size:13px;letter-spacing:.09em;text-transform:uppercase;color:var(--tinta-2)}
+  .llamada{
+    display:inline-grid;place-items:center;flex:none;width:38px;height:38px;border:2px solid currentColor;border-radius:50%;
+    font-weight:800;font-size:17px;line-height:1;color:var(--tinta);
+  }
+
+  /* ===== Vista general (primera pantalla) ===== */
+  .general{
+    min-height:calc(100svh - 2*var(--margen) - 26px);
+    display:grid;grid-template-columns:1fr auto;grid-template-rows:auto 1fr auto;
+    grid-template-areas:"titulo nav" "campo campo" "lede rotulo";
+    gap:22px 48px;padding:clamp(22px,2.8vw,40px) var(--pad) clamp(22px,2.6vw,34px);
+  }
+  .titulo{grid-area:titulo}
+  h1{font-stretch:118%;font-weight:800;font-size:clamp(40px,4.9vw,74px);line-height:.95;letter-spacing:-.02em;text-wrap:balance;max-width:14ch}
+  .rol{margin-top:14px;font-style:italic;font-size:clamp(17px,1.5vw,21px);color:var(--tinta-2);max-width:48ch}
+  nav.indice{grid-area:nav;align-self:start}
+  nav.indice ul{display:flex;gap:6px 26px;flex-wrap:wrap;justify-content:flex-end}
+  nav.indice a{font-stretch:75%;font-weight:600;font-size:15px;letter-spacing:.07em;text-transform:uppercase;color:var(--tinta);text-decoration:none;padding:4px 0}
+  nav.indice a:hover{color:var(--lapiz);text-decoration:underline}
+
+  .campo{grid-area:campo;display:grid;grid-template-columns:1.05fr 1.25fr 1fr;gap:clamp(20px,3vw,56px);align-items:end}
+  .vista{display:flex;flex-direction:column;gap:14px;color:var(--tinta);text-decoration:none}
+  .vista svg{width:100%;height:auto;max-height:min(210px,24svh);overflow:visible}
+  .vista svg .t{stroke:var(--tinta);transition:stroke .25s cubic-bezier(.16,1,.3,1)}
+  .vista svg .a{stroke:var(--lapiz)}
+  .vista-pie{display:flex;gap:14px;align-items:flex-start}
+  .vista-pie h2{font-stretch:80%;font-weight:700;font-size:21px;letter-spacing:.04em;text-transform:uppercase;line-height:1.2}
+  .vista-pie p{font-size:15px;color:var(--tinta-2);margin-top:4px;max-width:34ch}
+  .vista .llamada{position:relative}
+  .vista .llamada::before{content:"";position:absolute;bottom:100%;left:50%;height:34px;border-left:1.2px solid currentColor}
+  .vista .llamada::after{content:"";position:absolute;bottom:calc(100% + 31px);left:calc(50% - 3px);width:7px;height:7px;border-radius:50%;background:currentColor}
+  .vista:hover svg .t,.vista:focus-visible svg .t{stroke:var(--lapiz)}
+  .vista:hover .llamada,.vista:focus-visible .llamada{color:var(--lapiz);background:var(--lapiz-t)}
+  .vista:hover h2,.vista:focus-visible h2{color:var(--lapiz)}
+
+  .nube{fill:none;stroke:var(--rev);stroke-width:1.8}
+  .nube-texto{fill:var(--rev);font-style:italic;font-weight:600}
+
+  .lede{grid-area:lede;align-self:end;max-width:56ch;font-size:18px}
+  .lede strong{font-weight:700}
+
+  /* rótulo */
+  .rotulo{grid-area:rotulo;align-self:end;width:min(100%,600px);border:3px solid var(--tinta);display:grid;grid-template-columns:118px 1fr auto;background:var(--calco)}
+  .rotulo > *{border-right:1px solid var(--tinta);border-bottom:1px solid var(--tinta);padding:8px 12px;font-size:15px;min-width:0}
+  .rotulo > :nth-child(3n){border-right:none}
+  .rotulo > :nth-last-child(-n+3){border-bottom:none}
+  .rotulo .k{font-stretch:72%;font-weight:600;font-size:12px;letter-spacing:.09em;text-transform:uppercase;color:var(--tinta-2);display:flex;align-items:center}
+  .rotulo .n{grid-column:span 2;font-weight:800;font-size:20px;border-right:none}
+  .rotulo .span2{grid-column:span 2;border-right:none}
+  .rotulo a{overflow-wrap:anywhere}
+
+  /* ===== Secciones ===== */
+  section{position:relative;border-top:3px solid var(--tinta);padding:clamp(40px,5vw,72px) var(--pad)}
+  .sec-cab{display:flex;align-items:baseline;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-bottom:clamp(28px,3.5vw,48px)}
+  .sec-cab h2{font-stretch:118%;font-weight:800;font-size:clamp(30px,3.4vw,46px);line-height:1;letter-spacing:-.015em}
+
+  /* detalles */
+  .detalle{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:clamp(24px,4vw,72px);align-items:start;padding:clamp(28px,3.5vw,48px) 0;border-top:1px solid var(--tinta)}
+  .detalle:first-of-type{border-top:none;padding-top:0}
+  .detalle figure{border:1px solid var(--tinta);padding:clamp(16px,2.4vw,32px);background:linear-gradient(var(--calco),var(--calco)) padding-box}
+  .detalle figure svg{width:100%;height:auto;display:block;overflow:visible}
+  .detalle figure svg .t{stroke:var(--tinta)}
+  .detalle figure svg .a{stroke:var(--lapiz)}
+  .detalle figcaption{margin-top:12px;font-style:italic;font-size:14px;color:var(--tinta-2)}
+  .det-cab{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+  .det-cab h3{font-stretch:105%;font-weight:800;font-size:clamp(26px,2.6vw,34px);line-height:1.05}
+  .estado{margin-left:auto;font-stretch:75%;font-weight:700;font-size:13px;letter-spacing:.08em;text-transform:uppercase;padding:4px 10px;border:2px solid currentColor}
+  .estado.rev{color:var(--rev)}
+  .estado.ok{color:var(--tinta)}
+  .material{margin-top:10px;font-stretch:85%;font-size:15px;color:var(--lapiz)}
+  .detalle ul{margin-top:20px;display:grid;gap:12px}
+  .detalle li{position:relative;padding-left:24px;max-width:62ch}
+  .detalle li::before{content:"";position:absolute;left:0;top:.72em;width:12px;height:0;border-top:1.5px solid var(--tinta)}
+  .detalle .ver{display:inline-block;margin-top:20px;font-weight:700}
+
+  /* lista de materiales */
+  table{width:100%;border-collapse:collapse;border:3px solid var(--tinta);background:var(--calco)}
+  th,td{border:1px solid var(--tinta);padding:12px 16px;text-align:left;vertical-align:top}
+  thead th{font-stretch:72%;font-weight:600;font-size:12px;letter-spacing:.09em;text-transform:uppercase;color:var(--tinta-2);border-bottom-width:2px}
+  td.pos{width:70px;font-weight:700;text-align:center}
+  td.area{width:22%;font-weight:700}
+  td .nota{display:block;font-style:italic;font-size:14px;color:var(--tinta-2);margin-top:2px}
+
+  /* historial de revisiones */
+  .historial{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(24px,3vw,48px)}
+  .historial h3{font-stretch:72%;font-weight:700;font-size:14px;letter-spacing:.09em;text-transform:uppercase;padding-bottom:10px;border-bottom:2px solid var(--tinta)}
+  .historial ol{list-style:none;padding:0}
+  .historial li{padding:16px 0;border-bottom:1px solid var(--tinta)}
+  .historial .fecha{font-stretch:85%;font-size:14px;color:var(--lapiz)}
+  .historial .que{font-weight:700;font-size:18px;line-height:1.25;margin-top:2px}
+  .historial .donde{font-size:15px;color:var(--tinta-2)}
+  .historial .desc{font-size:15px;margin-top:6px}
+
+  /* contacto: rótulo grande */
+  .cierre{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:clamp(28px,4vw,72px);align-items:end}
+  .cierre p{font-size:19px;max-width:40ch;margin-top:16px}
+  .rotulo-grande{border:3px solid var(--tinta);display:grid;grid-template-columns:130px 1fr}
+  .rotulo-grande > *{padding:14px 18px;border-bottom:1px solid var(--tinta)}
+  .rotulo-grande > :nth-child(odd){border-right:1px solid var(--tinta);font-stretch:72%;font-weight:600;font-size:12px;letter-spacing:.09em;text-transform:uppercase;color:var(--tinta-2);display:flex;align-items:center}
+  .rotulo-grande > :nth-last-child(-n+2){border-bottom:none}
+  .rotulo-grande a{font-weight:700;font-size:clamp(17px,1.6vw,21px);overflow-wrap:anywhere}
+  .rotulo-grande .cv{display:inline-block;background:var(--tinta);color:var(--calco);text-decoration:none;padding:10px 18px;font-size:16px}
+  .rotulo-grande .cv:hover{background:var(--lapiz)}
+  .pie{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;border-top:1px solid var(--tinta);padding:14px var(--pad);font-stretch:80%;font-size:13px;color:var(--tinta-2)}
+
+  /* ploteo de las vistas al cargar */
+  @media (prefers-reduced-motion:no-preference){
+    .plot{stroke-dasharray:1;stroke-dashoffset:1;animation:plotear 1.4s cubic-bezier(.16,1,.3,1) forwards}
+    .campo .vista:nth-child(2) .plot{animation-delay:.18s}
+    .campo .vista:nth-child(3) .plot{animation-delay:.36s}
+    @keyframes plotear{to{stroke-dashoffset:0}}
+  }
+
+  /* ===== Responsive ===== */
+  @media (max-width:1100px){
+    .campo{grid-template-columns:repeat(3,minmax(0,1fr))}
+    .general{grid-template-areas:"titulo titulo" "nav nav" "campo campo" "lede lede" "rotulo rotulo";grid-template-columns:1fr}
+    nav.indice ul{justify-content:flex-start}
+    .historial{grid-template-columns:1fr 1fr}
+  }
+  @media (max-width:760px){
+    :root{--margen:10px}
+    body{font-size:16px}
+    .lamina{padding:6px}
+    .regla span:nth-child(n+5){display:none}
+    .general{min-height:0}
+    nav.indice ul{display:grid;grid-template-columns:1fr 1fr;gap:6px 20px}
+    .campo{grid-template-columns:1fr;gap:36px}
+    .vista svg{max-height:220px}
+    .detalle,.cierre,.historial{grid-template-columns:1fr}
+    .rotulo{grid-template-columns:92px 1fr}
+    .rotulo > *{border-right:1px solid var(--tinta)!important;border-bottom:1px solid var(--tinta)!important}
+    .rotulo > :nth-child(3n){border-right:1px solid var(--tinta)}
+    .rotulo .n,.rotulo .span2{grid-column:span 1}
+    .rotulo .anio{display:none}
+    .rotulo-grande{grid-template-columns:76px 1fr}
+    .rotulo-grande > *{padding:12px 12px}
+    .rotulo-grande a{font-size:15.5px}
+    th,td{padding:10px}
+    td.pos{width:44px}
+    thead th:first-child,td.pos{display:none}
+  }
+</style>
+</head>
+<body>
+<div class="lamina">
+<div class="regla" aria-hidden="true"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span></div>
+<div class="marco">
+
+  <!-- ===== Vista general ===== -->
+  <header class="general" id="inicio">
+    <div class="titulo">
+      <h1>Tobías Galarza Montoro</h1>
+      <p class="rol">Estudiante de Ingeniería en Sistemas de Información. Desarrollador Full Stack y Android.</p>
+    </div>
+
+    <nav class="indice" aria-label="Secciones">
+      <ul>
+        <li><a href="#detalles">Proyectos</a></li>
+        <li><a href="#materiales">Stack</a></li>
+        <li><a href="#revisiones">Trayectoria</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+      </ul>
+    </nav>
+
+    <div class="campo">
+      <a class="vista" href="#detalle-a">
+        <svg viewBox="0 0 300 300" preserveAspectRatio="xMinYMax meet" role="img" aria-label="Dibujo de GeoAlarm: un teléfono con el radio de una alarma sobre el mapa">
+          <rect class="t plot" pathLength="1" x="10" y="14" width="140" height="272" rx="20" fill="none" stroke-width="2.5"/>
+          <rect class="t plot" pathLength="1" x="22" y="40" width="116" height="214" fill="none" stroke-width="1"/>
+          <path class="t" d="M22 92 H138 M22 160 H138 M22 210 H138 M64 40 V254 M106 40 V254" stroke-width=".6" opacity=".45" fill="none"/>
+          <circle class="a plot" pathLength="1" cx="80" cy="138" r="40" fill="none" stroke-width="1.6" stroke-dasharray="5 4"/>
+          <circle cx="80" cy="138" r="4.5" fill="#2747A8"/>
+          <path class="nube" d="M2 4 a13.0 13.0 0 0 1 26.0 0.0 a13.0 13.0 0 0 1 26.0 0.0 a13.0 13.0 0 0 1 26.0 0.0 a13.0 13.0 0 0 1 26.0 0.0 a13.0 13.0 0 0 1 26.0 0.0 a13.0 13.0 0 0 1 26.0 0.0 a12.2 12.2 0 0 1 0.0 24.3 a12.2 12.2 0 0 1 0.0 24.3 a12.2 12.2 0 0 1 0.0 24.3 a12.2 12.2 0 0 1 0.0 24.3 a12.2 12.2 0 0 1 0.0 24.3 a12.2 12.2 0 0 1 0.0 24.3 a12.2 12.2 0 0 1 0.0 24.3 a12.2 12.2 0 0 1 0.0 24.3 a12.2 12.2 0 0 1 0.0 24.3 a12.2 12.2 0 0 1 0.0 24.3 a12.2 12.2 0 0 1 0.0 24.3 a12.2 12.2 0 0 1 0.0 24.3 a13.0 13.0 0 0 1 -26.0 0.0 a13.0 13.0 0 0 1 -26.0 0.0 a13.0 13.0 0 0 1 -26.0 0.0 a13.0 13.0 0 0 1 -26.0 0.0 a13.0 13.0 0 0 1 -26.0 0.0 a13.0 13.0 0 0 1 -26.0 0.0 a12.2 12.2 0 0 1 0.0 -24.3 a12.2 12.2 0 0 1 0.0 -24.3 a12.2 12.2 0 0 1 0.0 -24.3 a12.2 12.2 0 0 1 0.0 -24.3 a12.2 12.2 0 0 1 0.0 -24.3 a12.2 12.2 0 0 1 0.0 -24.3 a12.2 12.2 0 0 1 0.0 -24.3 a12.2 12.2 0 0 1 0.0 -24.3 a12.2 12.2 0 0 1 0.0 -24.3 a12.2 12.2 0 0 1 0.0 -24.3 a12.2 12.2 0 0 1 0.0 -24.3 a12.2 12.2 0 0 1 0.0 -24.3z"/>
+          <path class="a" d="M194 14 V286 M188 14 H200 M188 286 H200" stroke-width="1" fill="none"/>
+          <text x="210" y="150" font-size="12" fill="#2747A8" text-anchor="middle" transform="rotate(-90 210 150)">alerta en pantalla bloqueada</text>
+          <text class="nube-texto" x="228" y="30" font-size="14"><tspan x="228">v1.3</tspan><tspan x="228" dy="16">en revisión</tspan></text>
+        </svg>
+        <div class="vista-pie">
+          <span class="llamada">A</span>
+          <div><h2>GeoAlarm</h2><p>App Android de alarmas por proximidad, llevada hasta Google Play.</p></div>
+        </div>
+      </a>
+
+      <a class="vista" href="#detalle-b">
+        <svg viewBox="0 0 340 200" preserveAspectRatio="xMinYMax meet" role="img" aria-label="Diagrama del sistema de gestión de tareas: React, Express y SQLite">
+          <defs><marker id="flecha" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10z" fill="#22262B"/></marker></defs>
+          <rect class="t plot" pathLength="1" x="8" y="122" width="120" height="70" fill="none" stroke-width="2"/>
+          <rect class="t plot" pathLength="1" x="212" y="122" width="120" height="70" fill="none" stroke-width="2"/>
+          <rect class="t plot" pathLength="1" x="212" y="26" width="120" height="48" fill="none" stroke-width="2"/>
+          <path class="t" d="M128 157 H210 M272 122 V76" stroke-width="1.5" fill="none" marker-end="url(#flecha)"/>
+          <text x="22" y="162" font-size="16" fill="#22262B">React</text>
+          <text x="226" y="162" font-size="16" fill="#22262B">Express</text>
+          <text x="226" y="56" font-size="16" fill="#22262B">SQLite</text>
+          <text x="140" y="148" font-size="12" fill="#2747A8">JWT</text>
+          <text x="8" y="108" font-size="12" fill="#2747A8">roles: colaborador · líder · admin</text>
+        </svg>
+        <div class="vista-pie">
+          <span class="llamada">B</span>
+          <div><h2>Gestión de tareas</h2><p>Sistema full stack hecho en solitario, con roles y auditoría.</p></div>
+        </div>
+      </a>
+
+      <a class="vista" href="#detalle-c">
+        <svg viewBox="0 0 260 220" preserveAspectRatio="xMinYMax meet" role="img" aria-label="Grafo del taller de agentes: Claude Code conectado a dos agentes y a las skills">
+          <circle class="t plot" pathLength="1" cx="130" cy="40" r="32" fill="none" stroke-width="2"/>
+          <circle class="t plot" pathLength="1" cx="34" cy="178" r="30" fill="none" stroke-width="2"/>
+          <circle class="t plot" pathLength="1" cx="130" cy="186" r="28" fill="none" stroke-width="2"/>
+          <circle class="t plot" pathLength="1" cx="220" cy="170" r="28" fill="none" stroke-width="2"/>
+          <path class="a" d="M112 66 L50 152 M130 72 V158 M148 66 L206 146" stroke-width="1.5" fill="none"/>
+          <text x="130" y="44" font-size="12" text-anchor="middle" fill="#22262B">Claude</text>
+          <text x="34" y="182" font-size="11" text-anchor="middle" fill="#22262B">sherlock</text>
+          <text x="130" y="190" font-size="11" text-anchor="middle" fill="#22262B">skills</text>
+          <text x="220" y="174" font-size="11" text-anchor="middle" fill="#22262B">profesor</text>
+        </svg>
+        <div class="vista-pie">
+          <span class="llamada">C</span>
+          <div><h2>Agentes de IA</h2><p>Subagentes y skills propias para Claude Code, publicados en GitHub.</p></div>
+        </div>
+      </a>
+    </div>
+
+    <p class="lede">Construyo aplicaciones de punta a punta, desde la primera línea de código hasta su publicación. Llevé una app propia hasta las <strong>pruebas cerradas de Google Play</strong> y armo mis propios agentes de IA, con reglas claras: no inventar datos y citar siempre las fuentes.</p>
+
+    <div class="rotulo" role="group" aria-label="Rótulo con datos de contacto">
+      <span class="k">Nombre</span><span class="n">Tobías Galarza Montoro</span>
+      <span class="k">Carrera</span><span>Ing. en Sistemas de Información · UTN</span><span class="anio">2022–hoy</span>
+      <span class="k">Mail</span><span class="span2"><a href="mailto:totogalarza05@gmail.com">totogalarza05@gmail.com</a></span>
+      <span class="k">GitHub</span><span><a href="https://github.com/tobiasgalarzam">github.com/tobiasgalarzam</a></span><span class="anio">Córdoba, AR</span>
+      <span class="k">Revisión</span><span>11/2026 · Escala 1:1</span><span class="anio">Hoja 1/1</span>
+    </div>
+  </header>
+
+  <!-- ===== Detalles ===== -->
+  <section id="detalles" aria-labelledby="t-detalles">
+    <div class="sec-cab">
+      <h2 id="t-detalles">Proyectos</h2>
+    </div>
+
+    <article class="detalle" id="detalle-a">
+      <figure>
+        <svg viewBox="0 0 420 300" role="img" aria-label="Flujo de GeoAlarm: alarma en el mapa, código QR y alerta">
+          <rect class="t" x="10" y="20" width="120" height="230" rx="16" fill="none" stroke-width="2.2"/>
+          <path class="t" d="M22 70 H118 M22 130 H118 M22 190 H118 M54 34 V236 M86 34 V236" stroke-width=".6" opacity=".45" fill="none"/>
+          <circle class="a" cx="70" cy="128" r="34" fill="none" stroke-width="1.5" stroke-dasharray="5 4"/>
+          <circle cx="70" cy="128" r="4" fill="#2747A8"/>
+          <rect class="t" x="168" y="80" width="90" height="90" fill="none" stroke-width="2"/>
+          <path class="t" d="M180 92 h24 v24 h-24z M222 92 h24 v24 h-24z M180 134 h24 v24 h-24z M222 134 h10 v10 h-10z M236 148 h10 v10 h-10z" stroke-width="1.5" fill="none"/>
+          <rect class="t" x="296" y="20" width="114" height="230" rx="16" fill="none" stroke-width="2.2"/>
+          <rect class="t" x="310" y="104" width="86" height="54" fill="none" stroke-width="1.5"/>
+          <text x="353" y="136" font-size="13" text-anchor="middle" fill="#22262B">¡Llegaste!</text>
+          <path class="t" d="M134 128 H164 M262 128 H292" stroke-width="1.2" fill="none" marker-end="url(#flecha)"/>
+          <text x="70" y="276" font-size="12" text-anchor="middle" fill="#2747A8">alarma en el mapa</text>
+          <text x="213" y="196" font-size="12" text-anchor="middle" fill="#2747A8">importar / exportar</text>
+          <text x="353" y="276" font-size="12" text-anchor="middle" fill="#2747A8">alerta bloqueada</text>
+        </svg>
+        <figcaption>Detalle A · de la alarma en el mapa a la alerta sobre la pantalla bloqueada.</figcaption>
+      </figure>
+      <div>
+        <div class="det-cab"><span class="llamada">A</span><h3>GeoAlarm</h3><span class="estado rev">v1.3 · en revisión de Google</span></div>
+        <p class="material">Kotlin · Room · OSMDroid · FusedLocationProviderClient · Geofencing · AdMob</p>
+        <ul>
+          <li>App Android de alarmas por proximidad, hecha desde cero: alarmas sobre un mapa, importación y exportación por código QR, y alertas que aparecen incluso con la pantalla bloqueada.</li>
+          <li>Publicación en Google Play: app firmada, ficha de la tienda, política de privacidad y versión 1.3 en pruebas cerradas, en revisión de Google.</li>
+          <li>Monetización con AdMob (flujo de consentimiento UMP) y actualización a los requisitos de Android 16.</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="detalle" id="detalle-b">
+      <figure>
+        <svg viewBox="0 0 420 260" role="img" aria-label="Arquitectura del sistema de tareas con tres roles">
+          <rect class="t" x="10" y="90" width="120" height="70" fill="none" stroke-width="2"/>
+          <rect class="t" x="200" y="90" width="120" height="70" fill="none" stroke-width="2"/>
+          <rect class="t" x="200" y="200" width="120" height="46" fill="none" stroke-width="2"/>
+          <path class="t" d="M130 125 H198 M260 160 V198" stroke-width="1.5" fill="none" marker-end="url(#flecha)"/>
+          <text x="70" y="122" font-size="15" text-anchor="middle" fill="#22262B">React + Vite</text>
+          <text x="70" y="142" font-size="12" text-anchor="middle" fill="#4A5059">dashboard · chat</text>
+          <text x="260" y="122" font-size="15" text-anchor="middle" fill="#22262B">Express</text>
+          <text x="260" y="142" font-size="12" text-anchor="middle" fill="#4A5059">reglas de negocio</text>
+          <text x="260" y="228" font-size="15" text-anchor="middle" fill="#22262B">SQLite</text>
+          <text x="164" y="116" font-size="12" text-anchor="middle" fill="#2747A8">JWT</text>
+          <circle class="a" cx="40" cy="36" r="14" fill="none" stroke-width="1.5"/><circle class="a" cx="100" cy="36" r="14" fill="none" stroke-width="1.5"/><circle class="a" cx="160" cy="36" r="14" fill="none" stroke-width="1.5"/>
+          <text x="40" y="70" font-size="11" text-anchor="middle" fill="#2747A8">colaborador</text><text x="100" y="70" font-size="11" text-anchor="middle" fill="#2747A8">líder</text><text x="160" y="70" font-size="11" text-anchor="middle" fill="#2747A8">admin</text>
+          <rect class="t" x="350" y="90" width="60" height="70" fill="none" stroke-width="1.2" stroke-dasharray="4 3"/>
+          <text x="380" y="130" font-size="11" text-anchor="middle" fill="#22262B">auditoría</text>
+          <path class="t" d="M320 125 H348" stroke-width="1.2" fill="none"/>
+        </svg>
+        <figcaption>Detalle B · tres roles, validación en el servidor e historial de auditoría.</figcaption>
+      </figure>
+      <div>
+        <div class="det-cab"><span class="llamada">B</span><h3>Sistema de gestión de tareas</h3><span class="estado ok">Entregado · UTN</span></div>
+        <p class="material">Node.js · Express · Sequelize · SQLite · React · Vite · JWT</p>
+        <ul>
+          <li>Aplicación full stack desarrollada en solitario para la materia Desarrollo de Software, con autenticación por roles (colaborador, líder, admin) y reglas de negocio validadas en el backend.</li>
+          <li>Dashboard administrativo con gráficos (Recharts), historial de auditoría, panel de chat y edición de tareas con modales.</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="detalle" id="detalle-c">
+      <figure>
+        <svg viewBox="0 0 420 270" role="img" aria-label="Esquema del taller: Claude Code, agentes, skills y segundo cerebro">
+          <rect class="t" x="150" y="10" width="120" height="50" fill="none" stroke-width="2"/>
+          <text x="210" y="41" font-size="15" text-anchor="middle" fill="#22262B">Claude Code</text>
+          <circle class="t" cx="50" cy="140" r="38" fill="none" stroke-width="2"/><text x="50" y="144" font-size="12" text-anchor="middle" fill="#22262B">sherlock</text>
+          <circle class="t" cx="160" cy="140" r="38" fill="none" stroke-width="2"/><text x="160" y="144" font-size="12" text-anchor="middle" fill="#22262B">profesor</text>
+          <rect class="t" x="226" y="104" width="86" height="72" fill="none" stroke-width="2"/><text x="269" y="132" font-size="12" text-anchor="middle" fill="#22262B">chamba</text><text x="269" y="148" font-size="12" text-anchor="middle" fill="#22262B">analisis-cv</text><text x="269" y="164" font-size="12" text-anchor="middle" fill="#22262B">cerebro</text>
+          <rect class="t" x="330" y="104" width="80" height="72" fill="none" stroke-width="1.2" stroke-dasharray="4 3"/><text x="370" y="136" font-size="11" text-anchor="middle" fill="#4A5059">descargas</text><text x="370" y="152" font-size="11" text-anchor="middle" fill="#4A5059">cuarentena</text>
+          <path class="a" d="M180 60 L70 102 M200 60 L166 102 M228 60 L262 102" stroke-width="1.5" fill="none"/>
+          <rect class="t" x="90" y="214" width="240" height="46" fill="none" stroke-width="2"/>
+          <text x="210" y="242" font-size="14" text-anchor="middle" fill="#22262B">cerebro · Obsidian</text>
+          <path class="a" d="M50 178 L130 212 M160 178 L180 212 M269 176 L250 212" stroke-width="1.2" fill="none" stroke-dasharray="3 3"/>
+        </svg>
+        <figcaption>Detalle C · agentes con permisos mínimos que guardan todo en un segundo cerebro.</figcaption>
+      </figure>
+      <div>
+        <div class="det-cab"><span class="llamada">C</span><h3>Taller de agentes de IA</h3><span class="estado ok">Proyecto personal</span></div>
+        <p class="material">Claude Code · subagentes · skills · Obsidian · Python · PowerShell</p>
+        <ul>
+          <li>Agentes propios: un investigador que busca en la web y guarda notas con fuentes y PDF, y un tutor que arma clases a partir de mis apuntes.</li>
+          <li>Skills reutilizables para analizar el CV contra el mercado y buscar puestos, conectadas a un segundo cerebro en Obsidian y publicadas para todos mis proyectos con un script de PowerShell.</li>
+          <li>Reglas de control para los agentes: no inventar datos, citar fuentes y revisar todo código descargado antes de habilitarlo.</li>
+        </ul>
+        <a class="ver" href="https://github.com/tobiasgalarzam/taller-de-duendes">Ver el repositorio en GitHub</a>
+      </div>
+    </article>
+
+    <article class="detalle" id="detalle-d">
+      <figure>
+        <svg viewBox="0 0 420 220" role="img" aria-label="Simulación: un servidor distribuidor conectado a varios clientes en paralelo">
+          <rect class="t" x="150" y="80" width="120" height="60" fill="none" stroke-width="2"/>
+          <text x="210" y="106" font-size="14" text-anchor="middle" fill="#22262B">distribuidor</text>
+          <text x="210" y="124" font-size="11" text-anchor="middle" fill="#4A5059">servidor</text>
+          <g fill="none" stroke-width="1.8" class="t"><rect x="10" y="14" width="80" height="40"/><rect x="10" y="166" width="80" height="40"/><rect x="330" y="14" width="80" height="40"/><rect x="330" y="166" width="80" height="40"/></g>
+          <g font-size="12" text-anchor="middle" fill="#22262B"><text x="50" y="39">cliente</text><text x="50" y="191">cliente</text><text x="370" y="39">cliente</text><text x="370" y="191">cliente</text></g>
+          <path class="a" d="M90 34 L150 92 M90 186 L150 128 M330 34 L270 92 M330 186 L270 128" stroke-width="1.5" fill="none"/>
+          <text x="210" y="190" font-size="12" text-anchor="middle" fill="#2747A8">sockets · un hilo por cliente</text>
+        </svg>
+        <figcaption>Detalle D · pensado para pasar de pruebas locales a un clúster real.</figcaption>
+      </figure>
+      <div>
+        <div class="det-cab"><span class="llamada">D</span><h3>Simulación cliente-servidor</h3><span class="estado ok">Pasantía de investigación</span></div>
+        <p class="material">Python · Sockets · Threading</p>
+        <ul>
+          <li>Simulación de la comunicación entre un distribuidor de energía y varios clientes en paralelo, desarrollada en una pasantía de investigación.</li>
+          <li>Diseñada para escalar de pruebas locales a un clúster real de varias máquinas.</li>
+        </ul>
+      </div>
+    </article>
+  </section>
+
+  <!-- ===== Lista de materiales ===== -->
+  <section id="materiales" aria-labelledby="t-materiales">
+    <div class="sec-cab"><h2 id="t-materiales">Stack</h2></div>
+    <table>
+      <thead><tr><th scope="col">Pos.</th><th scope="col">Área</th><th scope="col">Componentes</th></tr></thead>
+      <tbody>
+        <tr><td class="pos">1</td><td class="area">Mobile</td><td>Kotlin, Android SDK, Room, Geofencing, OSMDroid<span class="nota">usado en el detalle A</span></td></tr>
+        <tr><td class="pos">2</td><td class="area">Backend</td><td>Node.js, Express, Sequelize, C# (.NET), PostgreSQL, SQLite<span class="nota">usado en el detalle B</span></td></tr>
+        <tr><td class="pos">3</td><td class="area">Frontend</td><td>React, Vite, Recharts</td></tr>
+        <tr><td class="pos">4</td><td class="area">IA</td><td>Claude Code: subagentes, skills<span class="nota">usado en el detalle C</span></td></tr>
+        <tr><td class="pos">5</td><td class="area">Lenguajes</td><td>Python, Haskell, Prolog, Smalltalk, C#</td></tr>
+        <tr><td class="pos">6</td><td class="area">Metodología</td><td>Scrum</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ===== Historial de revisiones ===== -->
+  <section id="revisiones" aria-labelledby="t-revisiones">
+    <div class="sec-cab"><h2 id="t-revisiones">Trayectoria</h2></div>
+    <div class="historial">
+      <div>
+        <h3>Formación</h3>
+        <ol>
+          <li><p class="fecha">2022 – hoy</p><p class="que">Ingeniería en Sistemas de Información</p><p class="donde">Universidad Tecnológica Nacional (UTN)</p></li>
+          <li><p class="fecha">2018 – 2019</p><p class="que">Nivel secundario</p><p class="donde">Instituto Parroquial Pío XII</p></li>
+        </ol>
+      </div>
+      <div>
+        <h3>Trabajo</h3>
+        <ol>
+          <li><p class="fecha">2022 – hoy</p><p class="que">Cocinero</p><p class="donde">Triple Sabor</p><p class="desc">Atención al público, manejo de caja y de las distintas áreas de la cocina.</p></li>
+          <li><p class="fecha">2023 – 2024</p><p class="que">Bartender</p><p class="donde">Ramos Generales Restobar</p><p class="desc">Atención al público en un entorno de alta demanda.</p></li>
+          <li><p class="fecha">2021 – 2022</p><p class="que">Pasante</p><p class="donde">Eduardo Lusso, Todo para el Agro (Plan Primer Paso)</p><p class="desc">Gestión de documentación de la empresa en relación con el cliente.</p></li>
+        </ol>
+      </div>
+      <div>
+        <h3>Certificaciones</h3>
+        <ol>
+          <li><p class="fecha">oct. 2026</p><p class="que">Aprende Programación Backend en C# .NET</p><p class="donde">Udemy · Héctor de León · 6,5 horas</p><p class="desc"><a href="https://ude.my/UC-11235f30-932c-4d7f-b459-f6cb2d602369">Ver certificado</a></p></li>
+          <li><p class="que">Fundamentos de Scrum</p></li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Contacto ===== -->
+  <section id="contacto" aria-labelledby="t-contacto">
+    <div class="cierre">
+      <div>
+        <h2 id="t-contacto" style="font-stretch:118%;font-weight:800;font-size:clamp(34px,4vw,56px);line-height:1;letter-spacing:-.015em">Hablemos</h2>
+        <p>Disponible para pasantías, prácticas profesionales y proyectos de desarrollo.</p>
+      </div>
+      <div class="rotulo-grande">
+        <span>Mail</span><span><a href="mailto:totogalarza05@gmail.com">totogalarza05@gmail.com</a></span>
+        <span>GitHub</span><span><a href="https://github.com/tobiasgalarzam">github.com/tobiasgalarzam</a></span>
+      </div>
+    </div>
+  </section>
+
+  <footer class="pie">
+    <span>Lámina única · Portafolio de Tobías Galarza Montoro</span>
+    <span>Córdoba, Argentina · Rev. 11/2026</span>
+  </footer>
+
+</div>
+</div>
+</body>
+</html>
